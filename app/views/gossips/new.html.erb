@@ -1,0 +1,41 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+    <a class="navbar-brand">The Gossip Project</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav nav-pills">
+        <li class="nav-item">
+          <%= link_to "Accueil", gossips_path, class: "nav-link active"%>
+        </li>
+        <li class="nav-item">
+          <%= link_to "L'équipe", "team", class: "nav-link"%>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Contact", "contact", class: "nav-link"%>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<div class="container">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>">
+      <%= value %>
+    </div>
+  <% end %>
+  <h1 class="my-3 text-center"> Ecrire un nouveau potin </h1>
+<%= form_tag url_for(action: 'create'), method: "post" do %>
+  <div class="form-group">
+    <%= label_tag 'Titre' %>
+    <%= text_field_tag 'title', @gossip.title, {class: 'form-control'} %>
+  </div>
+  <div class="form-group">
+    <%= label_tag 'Potin' %>
+    <%= text_area_tag 'content', @gossip.content, {class: 'form-control'} %>
+  </div> <br />
+  <%= submit_tag "Envoyer", {class:'btn btn-primary'}%>
+<% end %>
+</div>
