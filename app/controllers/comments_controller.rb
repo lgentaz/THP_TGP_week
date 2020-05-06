@@ -14,9 +14,9 @@ class CommentsController < ApplicationController
     @comment = Comment.new(content: params[:content], user_id: 1, gossip_id: params[:gossip_id])
     if @comment.save
       flash[:success] = "Bravo! Ton commentaire a été enregistré."
-      redirect_to gossip_path
+      redirect_to gossip_path(@comment.gossip.id)
     else
-      redirect_to gossip_path
+      render 'comment'
     end    
   end
 
@@ -27,33 +27,25 @@ class CommentsController < ApplicationController
   def update
     @comment = Comment.find(params[:id])
     
-    if @comment.update(comment_params)
+    if @comment.update(content: params[:content])
       flash[:success] = "Bravo! Ta modification a été enregistrée."
-      redirect_to gossip_path(gossip_id)
+      redirect_to gossip_path(@comment.gossip.id)
     else
       messages = []
       if @comment.errors.any?
         @comment.errors.full_messages.each do |message|
           messages << message
         end
-        flash[:danger] = "Impossible de modifier le potin: #{messages.join(" ")}"
+        flash[:danger] = "Impossible de modifier le commentaire: #{messages.join(" ")}"
       end
-      redirect_to edit_comment_path
+      render 'edit'
     end    
   end
 
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
-    redirect_to gossip_path(gossip_id)
+    redirect_to gossip_path(@comment.gossip.id)
   end
-
-  private 
-
-  def comment_params
-    params.require(:comment).permit(:content)
-  end
-
 
 end
-comment_path(comment.id)

@@ -35,8 +35,7 @@ class GossipsController < ApplicationController
 
   def update
     @gossip = Gossip.find(params[:id])
-    
-    if @gossip.update(gossip_params)
+    if @gossip.update(title: params[:title], content: params[:content], user_id: 1)
       flash[:success] = "Bravo! Ta modification a été enregistrée."
       redirect_to gossips_path
     else
@@ -55,12 +54,6 @@ class GossipsController < ApplicationController
     @gossip = Gossip.find(params[:id])
     @gossip.destroy
     redirect_to gossips_path
-  end
-
-private 
-
-  def gossip_params
-    params.require(:gossip).permit(:title, :content)
   end
 
 end
