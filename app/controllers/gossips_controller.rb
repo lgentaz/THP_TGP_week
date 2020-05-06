@@ -12,7 +12,7 @@ class GossipsController < ApplicationController
   end
 
   def create
-    @gossip = Gossip.new(title: params[:title], content: params[:content], user_id: rand(1..9))
+    @gossip = Gossip.new(title: params[:title], content: params[:content], user_id: 1)
     if @gossip.save
       flash[:success] = "Bravo! Ton potin a été enregistré."
       redirect_to gossips_path
@@ -34,5 +34,20 @@ class GossipsController < ApplicationController
 
   def update
     @gossip = Gossip.find(params[:id])
+    @gossip.update(title: params[:title], content: params[:content])
+    if @gossip.save
+      flash[:success] = "Bravo! Ta modification a été enregistrée."
+      redirect_to gossips_path
+    else
+      messages = []
+      if @gossip.errors.any?
+        @gossip.errors.full_messages.each do |message|
+          messages << message
+        end
+        flash[:danger] = "Impossible de modifier le potin: #{messages.join(" ")}"
+      end
+      redirect_to edit_gossip_path
+    end    
+
   end
 end
