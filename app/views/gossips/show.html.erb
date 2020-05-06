@@ -21,11 +21,11 @@
 </header>
 
 <div class="container">
-  <div class="card my-5">
+  <div class="card mt-5 mb-2">
     <div class="card-header">
       Gossip n°<%= @gossip.id %>
     </div>
-    <div class="card-body py-5">
+    <div class="card-body pt-5">
       <div class="card-title text-center">
         <h2 class="font-weight-bold"><%= @gossip.title%>
         <small> by 
@@ -35,13 +35,40 @@
       </div> 
       <h4 class="card-text pt-5 px-2"><%= @gossip.content%></h4>    
     </div>
-    <div class="card-footer text-muted text-right">
-      publié le <%= @gossip.created_at.strftime("%d/%m/%Y") %>
+    <div class="card-footer text-muted card-body d-flex justify-content-between">
+      <div class="font-weight-bold"> publié le <%= @gossip.created_at.strftime("%d/%m/%Y") %></div>
+      <div> <%= link_to "Modifier", edit_gossip_path, class:"btn btn-outline-info"%>
+      <%= link_to "Supprimer", gossip_path, class:"btn btn-outline-danger", data: { confirm: "Êtes-vous sûr de vouloir supprimer le potin?" }, method: :delete%>
+      </div>
     </div>
   </div>
-  <div class="row justify-content my-5">
-    <%= link_to "Modifier", edit_gossip_path, class:"btn btn-primary btn-lg ml-5"%>
-    <%= link_to "Supprimer", gossip_path, class:"btn btn-danger btn-lg ml-5", data: { confirm: "Êtes-vous sûr de vouloir supprimer le potin?" }, method: :delete%>
+
+  <div >
+    <%= form_tag url_for(:controller => "comments", action: 'create'), method: "post" do %>
+      <div class="form-group row mt-3">
+        <h3 class= 'col-sm-2 col-form-label ml-3'><%= label_tag 'Whooooo are you'%> </h3>
+        <%= select_tag 'user_id', options_from_collection_for_select(User.all, :id, :last_name), {class: 'form-control col-sm-4', prompt: 'Choisir un utilisateur'} %>
+      </div> 
+      <div class="form-group row mb-3">
+        <h3 class= 'col-sm-2 col-form-label ml-3'><%= label_tag 'Commenter'%></h3>
+        <%= text_area_tag 'content', @comment.content, {class: 'form-control col-sm-8'} %>
+        <%= submit_tag "Envoyer", {class:'btn btn-outline-primary col-sm-1 ml-5'}%>
+        <input id="gossip_id" name="gossip_id" type="hidden" value="<%=@gossip.id%>" />
+      </div> 
+    <% end %>
+  </div>
+
+  <div class="my-4 ml-3">
+    <h4 class="mr-5"> Commentaires</h4>
+    <% Comment.where(gossip_id: @gossip.id).each do |comment| %>
+      <div class="card mb-2">
+        <div class='card-body d-flex justify-content-between'>
+          <div class="card-text"> <%= comment.content%></div>
+          <div class="btn-group btn-group-sm" role="group" aria-label="Edit">
+            <%= link_to "Edit", edit_comment_path(comment.id), class:"btn btn-outline-info"%>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
-
