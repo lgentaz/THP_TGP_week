@@ -7,7 +7,7 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <%= link_to "Accueil", gossips_path, class: "nav-link active"%>
+        <%= link_to "Accueil", gossips_path, class: "nav-link"%>
       </li>
       <li class="nav-item">
         <%= link_to "L'équipe", class: "nav-link"%>
@@ -26,17 +26,22 @@
       Gossip n°<%= @gossip.id %>
     </div>
     <div class="card-body py-5">
-      <h1 class="card-title text-center">
-        <span class="font-weight-bold"><%= @gossip.title%></span>
+      <div class="card-title text-center">
+        <h2 class="font-weight-bold"><%= @gossip.title%>
         <small> by 
-        <a href="/user/<%= @gossip.user.id %>" class="text-warning"><%= @gossip.user.first_name%> <%= @gossip.user.last_name%></a>
-        </small>
-      </h1>
-      <h5 class="card-text pt-5 px-2"><%= @gossip.content%></h5>    
+        <a href="/users/<%= @gossip.user.id %>" class="text-warning"><%= @gossip.user.first_name%> <%= @gossip.user.last_name%></a>
+         <em class="small">(from <%= link_to @gossip.user.city.name, city_path(@gossip.user.city_id)%>)</em>
+        </small></h2>
+      </div> 
+      <h4 class="card-text pt-5 px-2"><%= @gossip.content%></h4>    
     </div>
     <div class="card-footer text-muted text-right">
       publié le <%= @gossip.created_at.strftime("%d/%m/%Y") %>
     </div>
+  </div>
+  <div class="row justify-content my-5">
+    <%= link_to "Modifier", edit_gossip_path, class:"btn btn-primary btn-lg ml-5"%>
+    <%= link_to "Supprimer", edit_gossip_path, class:"btn btn-primary btn-lg ml-5"%>
   </div>
 </div>
 

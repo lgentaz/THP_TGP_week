@@ -30,13 +30,9 @@ class GossipsController < ApplicationController
 
   def edit
     @gossip = Gossip.find(params[:id])
-    if @gossip.update()
-      redirect_to @gossip #ou gossip_path
-    else
-      redirect_to edit_gossip_path
-    end  
   end
 
   def update
+    @gossip = Gossip.find(params[:id])
   end
 end
