@@ -3,7 +3,7 @@ class LikesController < ApplicationController
   before_action :authenticate_user, only: [:create, :destroy]
 
   def create
-    @like = Gossip.new(title: params[:title], content: params[:content], user: current_user)
+    @like = Like.new(gossip: params[:gossip_id], user: current_user)
     if @gossip.save
       flash[:success] = "Bravo! Ton potin a été enregistré."
       redirect_to gossips_path

@@ -9,7 +9,11 @@
     <div class="card-header d-flex justify-content-between align-items-center">
       Gossip n°<%= @gossip.id %> 
       <h6 class= "align-items-center">
+      <%if liked?(@gossip) %>
+        <i class="fas fa-heart"></i>
+      <%else %>
         <i class="far fa-heart"></i>
+      <%end %>
       <%if @gossip.likes.count()>0%>
         <%= @gossip.likes.count() %></h6>
       <%end%>

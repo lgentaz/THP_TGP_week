@@ -24,7 +24,12 @@
             <p class="card-text"> de <%= link_to gossip.user.first_name, user_path(gossip.user.id) %></p>
             <%if gossip.likes.count()>0%>
               <%= gossip.likes.count() %> 
-            <%end%> <i class="far fa-heart"></i><br>
+            <%end%> 
+            <%if liked?(gossip) %>
+            <i class="fas fa-heart"></i>
+            <%else %>
+            <i class="far fa-heart"></i>
+            <%end %><br>
             <%if gossip.comments.count()>0%>
               <p class="card-text"><%= gossip.comments.count() %> commentaire(s)</p>
             <%end%>
