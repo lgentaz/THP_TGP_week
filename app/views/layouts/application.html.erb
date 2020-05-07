@@ -27,8 +27,8 @@
 
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        <li class="nav-item active">
-          <%= link_to "Accueil", gossips_path, class: "nav-link active"%>
+        <li class="nav-item">
+          <%= link_to "Accueil", gossips_path, class: "nav-link"%>
         </li>
         <li class="nav-item">
           <%= link_to "L'équipe","team", class: "nav-link"%>
@@ -38,6 +38,11 @@
         </li>
     </ul>
     <% if signed_in? %>
+      <ul class="navbar-nav mr-3 mt-2 mt-lg-0">
+        <li class="nav-item">
+          <%= link_to current_user.first_name, user_path(current_user.id), class: "nav-link"%>
+        </li>
+      </ul>
       <button type="button" class="btn btn-secondary"><%= link_to "Deconnection", session_path(session.id), method: :delete, class: "dropdown-item"%></button>
     <% else %>
       <div class="dropdown show">

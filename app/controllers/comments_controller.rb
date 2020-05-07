@@ -31,30 +31,43 @@ class CommentsController < ApplicationController
 
   def edit
     @comment = Comment.find(params[:id])
-  end
+    if !current_user?(@comment.user)
+      flash[:danger] = "Hé hé c'est pas ton potin ça!!!"
+      redirect_to gossips_path
+    end
+ end
 
   def update
     @comment = Comment.find(params[:id])
-    
-    if @comment.update(content: params[:content])
-      flash[:success] = "Bravo! Ta modification a été enregistrée."
-      redirect_to gossip_path(@comment.gossip.id)
+    if !current_user?(@comment.user)
+      flash[:danger] = "Hé hé c'est pas ton potin ça!!!"
+      redirect_to gossips_path
     else
-      messages = []
-      if @comment.errors.any?
-        @comment.errors.full_messages.each do |message|
-          messages << message
+      if @comment.update(content: params[:content])
+        flash[:success] = "Bravo! Ta modification a été enregistrée."
+        redirect_to gossip_path(@comment.gossip.id)
+      else
+        messages = []
+        if @comment.errors.any?
+          @comment.errors.full_messages.each do |message|
+            messages << message
+          end
+          flash[:danger] = "Impossible de modifier le commentaire: #{messages.join(" ")}"
         end
-        flash[:danger] = "Impossible de modifier le commentaire: #{messages.join(" ")}"
-      end
-      render 'edit'
-    end    
+        render 'edit'
+      end 
+    end   
   end
 
   def destroy
     @comment = Comment.find(params[:id])
-    @comment.destroy
-    redirect_to gossip_path(@comment.gossip.id)
+    if !current_user?(@comment.user)
+      flash[:danger] = "Hé hé c'est pas ton potin ça!!!"
+      redirect_to gossips_path
+    else
+      @comment.destroy
+      redirect_to gossip_path(@comment.gossip.id)
+    end
   end
 
   private

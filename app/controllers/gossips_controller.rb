@@ -32,36 +32,50 @@ class GossipsController < ApplicationController
 
   def edit
     @gossip = Gossip.find(params[:id])
+    if !current_user?(@gossip.user)
+      flash[:danger] = "Hé hé c'est pas ton potin ça!!!"
+      redirect_to gossips_path
+    end
   end
 
   def update
     @gossip = Gossip.find(params[:id])
-    if @gossip.update(title: params[:title], content: params[:content])
-      flash[:success] = "Bravo! Ta modification a été enregistrée."
+    if !current_user?(@gossip.user)
+      flash[:danger] = "Hé hé c'est pas ton potin ça!!!"
       redirect_to gossips_path
     else
-      messages = []
-      if @gossip.errors.any?
-        @gossip.errors.full_messages.each do |message|
-          messages << message
+      if @gossip.update(title: params[:title], content: params[:content])
+        flash[:success] = "Bravo! Ta modification a été enregistrée."
+        redirect_to gossips_path
+      else
+        messages = []
+        if @gossip.errors.any?
+          @gossip.errors.full_messages.each do |message|
+            messages << message
+          end
+          flash[:danger] = "Impossible de modifier le potin: #{messages.join(" ")}"
         end
-        flash[:danger] = "Impossible de modifier le potin: #{messages.join(" ")}"
+        redirect_to edit_gossip_path
       end
-      redirect_to edit_gossip_path
     end    
   end
 
   def destroy
     @gossip = Gossip.find(params[:id])
-    @gossip.destroy
-    redirect_to gossips_path
+    if !current_user?(@gossip.user)
+      flash[:danger] = "Hé hé c'est pas ton potin ça!!!"
+      redirect_to gossips_path
+    else
+      @gossip.destroy
+      redirect_to gossips_path
+    end
   end
 
   private
 
   def authenticate_user
     unless current_user
-      flash[:danger] = "Please log in."
+      flash[:danger] = "Vous devez vous connecter pour acceder au contenu."
       redirect_to new_session_path
     end
   end

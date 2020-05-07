@@ -4,13 +4,18 @@
       <%= value %>
     </div>
   <% end %>
-  <h1 class="my-3 text-center"> Modifier le commentaire n°<%= @comment.id %></h1>
-  
-<%= form_tag url_for(:action => 'update'), method: "put" do %>
-  <div class="form-group">
-    <%= text_area_tag :content, @comment.content, {class: 'form-control'} %>
-  </div> <br />
-  <%= submit_tag "Modifier", {class:'btn btn-outline-info'}%>
-  <%= link_to "Supprimer", comment_path, class:"btn btn-outline-danger", data: { confirm: "Êtes-vous sûr de vouloir supprimer le potin?" }, method: :delete%>
-<% end %>
+  <% if current_user?(@comment.user) %>
+
+    <h1 class="my-3 text-center"> Modifier le commentaire n°<%= @comment.id %></h1>
+    
+    <%= form_tag url_for(:action => 'update'), method: "put" do %>
+      <div class="form-group">
+        <%= text_area_tag :content, @comment.content, {class: 'form-control'} %>
+      </div> <br />
+      <%= submit_tag "Modifier", {class:'btn btn-outline-info'}%>
+      <%= link_to "Supprimer", comment_path, class:"btn btn-outline-danger", data: { confirm: "Êtes-vous sûr de vouloir supprimer le potin?" }, method: :delete%>
+    <% end %>
+
+  <%end%>
+
 </div>
