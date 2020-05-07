@@ -7,16 +7,23 @@ class CommentsController < ApplicationController
   end
 
   def new
-    @comment = Comment.new(content: params[:content], user_id: 1, gossip_id: params[:gossip_id])
+    @comment = Comment.new(content: params[:content], user: current_user, gossip_id: params[:gossip_id])
   end
 
   def create
-    @comment = Comment.new(content: params[:content], user_id: params[:user_id], gossip_id: params[:gossip_id])
+    @comment = Comment.new(content: params[:content], user: current_user, gossip_id: params[:gossip_id])
     if @comment.save
       flash[:success] = "Bravo! Ton commentaire a été enregistré."
       redirect_to gossip_path(@comment.gossip.id)
     else
-      render 'comment'
+      messages = []
+      if @comment.errors.any?
+        @comment.errors.full_messages.each do |message|
+          messages << message
+        end
+        flash[:danger] = "Impossible de créer le commentaire: #{messages.join(" ")}"
+      end
+      redirect_to gossip_path(params[:gossip_id])
     end    
   end
 

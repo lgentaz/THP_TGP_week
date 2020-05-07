@@ -21,6 +21,12 @@
 </header>
 
 <div class="container">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>">
+      <%= value %>
+    </div>
+  <% end %>
+
   <div class="card mt-5 mb-2">
     <div class="card-header">
       Gossip n°<%= @gossip.id %>
@@ -46,10 +52,6 @@
   <div >
     <%= form_tag url_for(:controller => "comments", action: 'create'), method: "post" do %>
       <div class="form-group row mt-3">
-        <h3 class= 'col-sm-2 col-form-label ml-3'><%= label_tag 'Whooooo are you'%> </h3>
-        <%= select_tag 'user_id', options_from_collection_for_select(User.all, :id, :last_name), {class: 'form-control col-sm-4', prompt: 'Choisir un utilisateur'} %>
-      </div> 
-      <div class="form-group row mb-3">
         <h3 class= 'col-sm-2 col-form-label ml-3'><%= label_tag 'Commenter'%></h3>
         <%= text_area_tag 'content', @comment.content, {class: 'form-control col-sm-8'} %>
         <%= submit_tag "Envoyer", {class:'btn btn-outline-primary col-sm-1 ml-5'}%>

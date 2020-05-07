@@ -29,10 +29,6 @@
   <h1 class="my-3 text-center"> Ecrire un nouveau potin </h1>
 <%= form_tag url_for(action: 'create'), method: "post" do %>
   <div class="form-group mt-5">
-    <%= label_tag 'Whooooo are you'%>
-    <%= select_tag 'user_id', options_from_collection_for_select(User.all, :id, :last_name), {class: 'form-control col-sm-4', prompt: 'Choisir un utilisateur'} %>
-  </div> 
-  <div class="form-group">
     <%= label_tag 'Titre' %>
     <%= text_field_tag 'title', @gossip.title, {class: 'form-control'} %>
   </div>

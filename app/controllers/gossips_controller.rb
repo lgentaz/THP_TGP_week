@@ -9,11 +9,11 @@ class GossipsController < ApplicationController
   end
 
   def new
-    @gossip = Gossip.new(title: params[:title], content: params[:content], user_id: params[:user_id])
+    @gossip = Gossip.new(title: params[:title], content: params[:content], user: current_user)
   end
 
   def create
-    @gossip = Gossip.new(title: params[:title], content: params[:content], user_id: params[:user_id])
+    @gossip = Gossip.new(title: params[:title], content: params[:content], user: current_user)
     if @gossip.save
       flash[:success] = "Bravo! Ton potin a été enregistré."
       redirect_to gossips_path
