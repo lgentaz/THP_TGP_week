@@ -23,6 +23,8 @@ end
         last_name: Faker::Name.last_name,
         description: Faker::Hipster.sentence,  
         email: Faker::Internet.free_email,
+        password: "bonjour",
+        image_url: Faker::Avatar.image,
         age: rand(18..124),
         city: City.all.sample
     )
