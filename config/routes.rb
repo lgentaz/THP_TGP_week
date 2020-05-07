@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   resources :sessions, only: [:new, :create, :destroy]
 
+  resources :likes, only: [:create, :destroy]
+
   get '/team', to: 'static_pages#team'
 
   get '/contact', to: 'static_pages#contact'

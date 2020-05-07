@@ -22,7 +22,15 @@
   <div>
     <h3 class="mb-3">Tout les potins de <%= @user.first_name%> : </h3>
     <% Gossip.where(user_id: @user.id).each do |gossip| %>
-      <h5> <%= link_to gossip.title, gossip_path(gossip.id), class:"text-warning"%>    
+      <h5> <%= link_to gossip.title, gossip_path(gossip.id), class:"text-warning"%>
+      <small class="ml-5"><%= gossip.likes.count() %> 
+      <%if gossip.likes.count()>0%>
+        <i class="fas fa-heart mr-3"></i> 
+      <%else%>
+        <i class="far fa-heart mr-3"></i>
+      <%end%> 
+      <%= gossip.comments.count() %> commentaire(s)</small>
+      </h5>
      <% end %>
   </div>
 
