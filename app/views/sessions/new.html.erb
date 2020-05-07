@@ -13,20 +13,20 @@
   </div>
 <% end %>
 
-<div class="container login-container d-flex justify-content-center">
-    <div class="col-md-4 login-form-1 border mt-5 pt-3">
-        <h3>Connexion</h3>
-        <%= form_tag url_for(action: 'create'), method: "post" do %>
-            <div class="form-group">
-                <%= text_field_tag 'email', :email, {class: 'form-control', placeholder: "email"} %>
-            </div>
-            <div class="form-group">
-                <%= password_field_tag 'password', :password, {class: 'form-control', placeholder: "password"} %>
-            </div>
-            <div class="form-group">
-                <%= submit_tag "Envoyer", {class:'btn btn-outline-dark'}%>
-            </div>
-        <% end %>
-    </div>
+<div class="container d-flex justify-content-center">
+  <div class="col-md-4 border mt-5 pt-3">
+    <h3>Connexion</h3>
+    <%= form_tag url_for(action: 'create'), method: "post" do %>
+      <div class="form-group">
+        <%= text_field_tag 'email', :email, {class: 'form-control', placeholder: "email"} %>
+      </div>
+      <div class="form-group">
+        <%= password_field_tag 'password', :password, {class: 'form-control', placeholder: "password"} %>
+      </div>
+      <div class="form-group">
+        <%= submit_tag "Envoyer", {class:'btn btn-outline-dark'}%>
+      </div>
+    <% end %>
+  </div>
 </div>
 
