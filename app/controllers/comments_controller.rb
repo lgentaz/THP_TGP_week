@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  before_action :authenticate_user, only: [:edit, :create, :update, :destroy]
+
   def index
   end
 
@@ -53,6 +55,15 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     @comment.destroy
     redirect_to gossip_path(@comment.gossip.id)
+  end
+
+  private
+
+  def authenticate_user
+    unless current_user
+      flash[:danger] = "Please log in."
+      redirect_to new_session_path
+    end
   end
 
 end

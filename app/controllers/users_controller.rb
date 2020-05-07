@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user, only: [:edit, :update]
+  
   def index
   end
 
@@ -37,5 +39,15 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:email, :password_digest)
   end
+
+  private
+
+  def authenticate_user
+    unless current_user
+      flash[:danger] = "Please log in."
+      redirect_to new_session_path
+    end
+  end
+
 
 end
