@@ -22,7 +22,7 @@
           <div class="card-body">
             <h5 class="card-title text-primary"><%= gossip.title %></h5>
             <p class="card-text"> de <%= link_to gossip.user.first_name, user_path(gossip.user.id) %><br><br>
-            <%= gossip.comments.count() %> commentaire(s)
+            <%= gossip.likes.count() %> like(s)    <%= gossip.comments.count() %> commentaire(s)
             </p>
 
           </div>

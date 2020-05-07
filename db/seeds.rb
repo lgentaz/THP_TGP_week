@@ -39,10 +39,19 @@ end
     )
 end
 
+#Comment.destroy_all
+50.times do
+    comment = Comment.create(
+        gossip: Gossip.all.sample,
+        user: User.all.sample,
+        content: Faker::Movies::HarryPotter.quote
+    )
+end
+
 #Tag.destroy_all
 10.times do
     tag = Tag.create(
-        title: Faker::App.name
+        title: Faker::Movies::HarryPotter.spell
     )
 end 
 
@@ -53,6 +62,16 @@ end
         tag: Tag.all.sample
     )
 end
+
+#Likes.destroy_all
+30.times do
+    like = Like.create(
+        gossip: Gossip.all.sample,
+        user: User.all.sample,
+        liked: true
+    )
+end
+
 
 #PrivateMessage.destroy_all
 10.times do

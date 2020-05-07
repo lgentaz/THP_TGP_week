@@ -46,9 +46,11 @@
       <div class="card mb-2">
         <div class='card-body d-flex justify-content-between'>
           <div class="card-text"> <%= comment.user.first_name%>: <%= comment.content%></div>
-          <div class="btn-group btn-group-sm" role="group" aria-label="Edit">
-            <%= link_to "Edit", edit_comment_path(comment.id), class:"btn btn-outline-info"%>
-          </div>
+          <%if current_user?(comment.user) %>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Edit">
+              <%= link_to "Edit", edit_comment_path(comment.id), class:"btn btn-outline-info"%>
+            </div>
+          <%end%>
         </div>
       </div>
     <% end %>
