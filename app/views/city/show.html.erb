@@ -10,14 +10,12 @@
           <div class="card-body">
             <h5 class="card-title text-primary"><%= gossip.title %></h5>
             <p class="card-text"> de <%= link_to gossip.user.first_name, user_path(gossip.user.id) %></p>
-            <p class="card-text"><%= gossip.likes.count() %> 
             <%if gossip.likes.count()>0%>
-              <i class="fas fa-heart"></i> 
-            <%else%>
-              <i class="far fa-heart"></i>
-            <%end%> <br>
-            <%= gossip.comments.count() %> commentaire(s)
-            </p>
+              <%= gossip.likes.count() %> 
+            <%end%> <i class="far fa-heart"></i><br>
+            <%if gossip.comments.count()>0%>
+              <p class="card-text"><%= gossip.comments.count() %> commentaire(s)</p>
+            <%end%>
           </div>
          <%= link_to "Voir", gossip_path(gossip.id), class:"btn btn-light"%>
         </div>

@@ -44,7 +44,8 @@
           <%= link_to current_user.first_name, user_path(current_user.id), class: "nav-link"%>
         </li>
       </ul>
-      <button type="button" class="btn btn-secondary"><%= link_to "Deconnection", session_path(session.id), method: :delete, class: "dropdown-item"%></button>
+      <%= link_to "Déconnexion", session_path(session.id), method: :delete, class: "btn btn-secondary my-2 my-sm-0"%>
+
     <% else %>
       <div class="dropdown show">
         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
