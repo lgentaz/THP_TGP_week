@@ -17,15 +17,19 @@
           <%= link_to "Contact", "contact", class: "nav-link"%>
         </li>
     </ul>
-    <div class="dropdown show">
-      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Sign In / Sign Up
-      </a>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <%= link_to "Sign Up", new_user_path, class: "dropdown-item"%>
-        <%= link_to "Login", new_session_path, class: "dropdown-item"%>
+    <% if signed_in? %>
+      <button type="button" class="btn btn-secondary"><%= link_to "Deconnection", session_path(session.id), method: :delete, class: "dropdown-item"%></button>
+    <% else %>
+      <div class="dropdown show">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Sign In / Sign Up
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <%= link_to "Sign Up", new_user_path, class: "dropdown-item"%>
+          <%= link_to "Login", new_session_path, class: "dropdown-item"%>
+        </div>
       </div>
-    </div>
+    <% end %>
   </nav>
 </header>
 
