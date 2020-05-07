@@ -53,7 +53,7 @@
         <h3 class= 'col-sm-2 col-form-label ml-3'><%= label_tag 'Commenter'%></h3>
         <%= text_area_tag 'content', @comment.content, {class: 'form-control col-sm-8'} %>
         <%= submit_tag "Envoyer", {class:'btn btn-outline-primary col-sm-1 ml-5'}%>
-        <input id="gossip_id" name="gossip_id" type="hidden" value="<%=@gossip.id%>" />
+        <%= hidden_field_tag(:gossip_id, @gossip.id) %>
       </div> 
     <% end %>
   </div>
@@ -63,7 +63,7 @@
     <% Comment.where(gossip_id: @gossip.id).each do |comment| %>
       <div class="card mb-2">
         <div class='card-body d-flex justify-content-between'>
-          <div class="card-text"> <%= comment.content%></div>
+          <div class="card-text"> <%= comment.user.first_name%>: <%= comment.content%></div>
           <div class="btn-group btn-group-sm" role="group" aria-label="Edit">
             <%= link_to "Edit", edit_comment_path(comment.id), class:"btn btn-outline-info"%>
           </div>

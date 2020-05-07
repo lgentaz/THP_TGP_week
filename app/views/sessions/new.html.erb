@@ -1,0 +1,32 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+    <a class="navbar-brand">The Gossip Project</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </nav>
+</header>
+
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>">
+    <%= value %>
+  </div>
+<% end %>
+
+<div class="container login-container d-flex justify-content-center">
+    <div class="col-md-4 login-form-1 border mt-5 pt-3">
+        <h3>Connexion</h3>
+        <%= form_tag url_for(action: 'create'), method: "post" do %>
+            <div class="form-group">
+                <%= text_field_tag 'email', :email, {class: 'form-control', placeholder: "email"} %>
+            </div>
+            <div class="form-group">
+                <%= password_field_tag 'password', :password, {class: 'form-control', placeholder: "password"} %>
+            </div>
+            <div class="form-group">
+                <%= submit_tag "Envoyer", {class:'btn btn-outline-dark'}%>
+            </div>
+        <% end %>
+    </div>
+</div>
+

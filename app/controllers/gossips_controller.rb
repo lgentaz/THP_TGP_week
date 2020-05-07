@@ -13,7 +13,7 @@ class GossipsController < ApplicationController
   end
 
   def create
-    @gossip = Gossip.new(title: params[:title], content: params[:content], user_id: 1)
+    @gossip = Gossip.new(title: params[:title], content: params[:content], user_id: params[:user_id])
     if @gossip.save
       flash[:success] = "Bravo! Ton potin a été enregistré."
       redirect_to gossips_path
@@ -35,7 +35,7 @@ class GossipsController < ApplicationController
 
   def update
     @gossip = Gossip.find(params[:id])
-    if @gossip.update(title: params[:title], content: params[:content], user_id: 1)
+    if @gossip.update(title: params[:title], content: params[:content])
       flash[:success] = "Bravo! Ta modification a été enregistrée."
       redirect_to gossips_path
     else
@@ -55,5 +55,7 @@ class GossipsController < ApplicationController
     @gossip.destroy
     redirect_to gossips_path
   end
+
+
 
 end

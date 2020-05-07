@@ -11,7 +11,7 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = Comment.new(content: params[:content], user_id: 1, gossip_id: params[:gossip_id])
+    @comment = Comment.new(content: params[:content], user_id: params[:user_id], gossip_id: params[:gossip_id])
     if @comment.save
       flash[:success] = "Bravo! Ton commentaire a été enregistré."
       redirect_to gossip_path(@comment.gossip.id)

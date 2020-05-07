@@ -6,8 +6,14 @@ Rails.application.routes.draw do
 
   resources :users
 
-  resources :city
+  resources :city, only: [:show]
 
   resources :comments
+
+  resources :sessions, only: [:new, :create, :destroy]
+
+  get '/team', to: 'static_pages#team'
+
+  get '/contact', to: 'static_pages#contact'
 
 end

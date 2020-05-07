@@ -1,0 +1,52 @@
+<header>
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+  <a class="navbar-brand">The Gossip Project</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <%= link_to "Accueil", root_path, class: "nav-link active"%>
+      </li>
+      <li class="nav-item">
+        <%= link_to "L'équipe", team_path, class: "nav-link"%>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Contact", contact_path, class: "nav-link active"%>
+      </li>
+    </ul>
+  </div>
+</nav>
+</header>
+
+
+<div class="container-fluid">
+  <div class="mt-5 text-center">
+    <h4>N'hésites pas à nous contacter</h4><br>
+  </div>
+
+  <div class="row pb-3">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="form_email">Ton email :</label>
+        <input id="form_email" type="email" name="email" class="form-control" placeholder="nom@adresse.com">
+      </div>
+    </div>
+  </div>
+
+  <div class="row pb-3">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="form_message">Dis nous tout :</label>
+        <textarea id="form_message" name="message" class="form-control" placeholder="Ton message" rows="4"></textarea>
+        <div class="help-block with-errors"></div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <input type="submit" class="btn btn-warning btn-send" value="Send message">
+    </div>
+  </div>
+</div>
+
+

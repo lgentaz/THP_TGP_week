@@ -1,0 +1,41 @@
+<header>
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-primary">
+    <a class="navbar-brand">The Gossip Project</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav nav-pills">
+        <li class="nav-item">
+          <%= link_to "Accueil", root_path, class: "nav-link active"%>
+        </li>
+        <li class="nav-item">
+          <%= link_to "L'équipe", team_path, class: "nav-link"%>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Contact", contact_path, class: "nav-link"%>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<div class="container-fluid">
+  <div class="pt-5 my-5 text-center">
+    <h1>Les derniers potins</h1>
+  </div>
+  <div class="row">
+    <% Gossip.all.each do |gossip| %>
+      <div class="col-l-3 col-md-4 col-sm-6">
+        <div class="card border-warning mb-3" style="border-width: 3px;">
+          <div class="card-body">
+            <h5 class="card-title text-primary"><%= gossip.title %></h5>
+            <p class="card-text"> de <%= link_to gossip.user.first_name, user_path(gossip.user.id) %></p>
+          </div>
+         <%= link_to "Voir", gossip_path(gossip.id), class:"btn btn-light"%>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+

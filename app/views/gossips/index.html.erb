@@ -1,11 +1,10 @@
 <header>
-  <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+  <nav class="navbar navbar-inverse navbar-expand-lg navbar-light bg-primary">
+  <div class="container-fluid">
+    <div class="navbar-header">
     <a class="navbar-brand">The Gossip Project</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav nav-pills">
+    </div>
+    <ul class="nav navbar-nav">
         <li class="nav-item">
           <%= link_to "Accueil", gossips_path, class: "nav-link active"%>
         </li>
@@ -16,22 +15,26 @@
           <%= link_to "Contact", "contact", class: "nav-link"%>
         </li>
       </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="nav-item"><%= link_to "Sign Up", new_user_path, class: "nav-link"%></li>
+        <li class="nav-item"><%= link_to "Login", new_session_path, class: "nav-link"%></li>
+      </ul>
     </div>
   </nav>
 </header>
 
-  <% flash.each do |key, value| %>
-    <div class="alert alert-<%= key %>">
-      <%= value %>
-    </div>
-  <% end %>
-
-  <div class="jumbotron">
-    <h1 class="display-4">Bienvenue sur le gossip project!</h1>
-    <p class="lead">Créer un nouveau potin</p>
-      <%= link_to "Go", new_gossip_path, class:"btn btn-primary btn-block my-2"%>
-    </p>
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>">
+    <%= value %>
   </div>
+<% end %>
+
+<div class="jumbotron">
+  <h1 class="display-4">Bienvenue sur le gossip project!</h1>
+  <p class="lead">Créer un nouveau potin</p>
+    <%= link_to "Go", new_gossip_path, class:"btn btn-primary btn-block my-2"%>
+  </p>
+</div>
 
 <div class="container-fluid">
   <div class="text-center">

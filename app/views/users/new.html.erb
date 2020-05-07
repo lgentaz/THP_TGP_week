@@ -1,2 +1,55 @@
-<h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+<header>
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+  <a class="navbar-brand">The Gossip Project</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <%= link_to "Accueil", gossips_path, class: "nav-link"%>
+      </li>
+      <li class="nav-item">
+        <%= link_to "L'équipe", class: "nav-link"%>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Contact", class: "nav-link"%>
+      </li>
+    </ul>
+  </div>
+</nav>
+</header>
+
+<div class="container">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>">
+      <%= value %>
+    </div>
+  <% end %>
+  <h1 class="my-3 text-center"> Crée ton compte Gossip Project </h1>
+  <%= form_tag url_for(action: 'create'), method: "post" do %>
+    <div class="form-group mt-5">
+      <%= label_tag 'Nom' %>
+      <%= text_field_tag 'last_name', @user.last_name, {class: 'form-control'} %>
+    </div>
+    <div class="form-group">
+      <%= label_tag 'Prénom' %>
+      <%= text_field_tag 'first_name', @user.first_name, {class: 'form-control'} %>
+    </div>
+    <div class="form-group">
+      <%= label_tag 'Email' %>
+      <%= text_field_tag 'email', @user.email, {class: 'form-control'} %>
+    </div>
+    <div class="form-group">
+      <%= label_tag 'Password' %>
+      <%= text_field_tag 'password', @user.password, {class: 'form-control'} %>
+    </div> 
+    <div class="form-group">
+      <%= label_tag 'City' %>
+      <%= select_tag 'city_id', options_from_collection_for_select(City.all, :id, :name), {class: 'form-control', prompt: 'Choisir une ville'} %>
+    </div> 
+
+    <br />
+    <%= submit_tag "Envoyer", {class:'btn btn-primary'}%>
+  <% end %>
+</div>
