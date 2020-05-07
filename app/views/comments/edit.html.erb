@@ -1,25 +1,3 @@
-<header>
-  <nav class="navbar navbar-expand-lg navbar-light bg-primary">
-    <a class="navbar-brand">The Gossip Project</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav nav-pills">
-        <li class="nav-item">
-          <%= link_to "Accueil", gossips_path, class: "nav-link"%>
-        </li>
-        <li class="nav-item">
-          <%= link_to "L'équipe", "team", class: "nav-link"%>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Contact", "contact", class: "nav-link"%>
-        </li>
-      </ul>
-    </div>
-  </nav>
-</header>
-
 <div class="container">
   <% flash.each do |key, value| %>
     <div class="alert alert-<%= key %>">

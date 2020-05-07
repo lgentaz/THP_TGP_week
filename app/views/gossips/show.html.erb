@@ -1,25 +1,3 @@
-<header>
-<nav class="navbar navbar-expand-lg navbar-light bg-primary">
-  <a class="navbar-brand">The Gossip Project</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <%= link_to "Accueil", gossips_path, class: "nav-link"%>
-      </li>
-      <li class="nav-item">
-        <%= link_to "L'équipe", class: "nav-link"%>
-      </li>
-      <li class="nav-item">
-        <%= link_to "Contact", class: "nav-link"%>
-      </li>
-    </ul>
-  </div>
-</nav>
-</header>
-
 <div class="container">
   <% flash.each do |key, value| %>
     <div class="alert alert-<%= key %>">
@@ -43,9 +21,11 @@
     </div>
     <div class="card-footer text-muted card-body d-flex justify-content-between">
       <div class="font-weight-bold"> publié le <%= @gossip.created_at.strftime("%d/%m/%Y") %></div>
+    <% if current_user?(@gossip.user) %>
       <div> <%= link_to "Modifier", edit_gossip_path, class:"btn btn-outline-info"%>
       <%= link_to "Supprimer", gossip_path, class:"btn btn-outline-danger", data: { confirm: "Êtes-vous sûr de vouloir supprimer le potin?" }, method: :delete%>
       </div>
+    <%end%>
     </div>
   </div>
 
