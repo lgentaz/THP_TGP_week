@@ -6,7 +6,6 @@ class LikesController < ApplicationController
     @like = Like.new(liked: true, gossip_id: params[:gossip_id], user_id: current_user.id)
     if @like.save
       flash[:success] = "Merci d'avoir liké!"
-      redirect_to gossips_path
     else
       flash[:error] = @like.errors.full_messages.join(', ')
     end

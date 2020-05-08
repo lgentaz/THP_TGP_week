@@ -8,6 +8,8 @@ class SessionsController < ApplicationController
     @user = User.find_by(email: params[:email])
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
+      login(user)
+      remember(user)
       flash[:success] = "Tu es connecté(e)."
       redirect_to gossips_path #rediriger où on veut
     else
@@ -18,6 +20,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session.delete(:user_id)
+    log_out(user)
     redirect_to gossips_path
   end
   

@@ -8,4 +8,9 @@ class User < ApplicationRecord
     validates :password, presence: true, length: { minimum: 6 }
     validates :email, presence: true, uniqueness: true, format: { with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/, message: "Entrez une adresse email valide" }
     has_secure_password
+
+    def remember(remember_token)
+        remember_digest = BCrypt::Password.create(remember_token)
+        self.update(remember_digest: remember_digest)
+    end
 end

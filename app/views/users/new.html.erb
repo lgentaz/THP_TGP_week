@@ -23,10 +23,17 @@
       <%= text_field_tag 'password', @user.password, {class: 'form-control'} %>
     </div> 
     <div class="form-group">
-      <%= label_tag 'City' %>
-      <%= select_tag 'city_id', options_from_collection_for_select(City.all, :id, :name), {class: 'form-control', prompt: 'Choisir une ville'} %>
+      <%= label_tag 'Age' %>
+      <%= text_field_tag 'age', @user.age, {class: 'form-control'} %>
     </div> 
-
+    <div class="form-group">
+      <%= label_tag 'City' %>
+      <%= text_field_tag 'city', @user.city, {class: 'form-control'} %>
+    </div> 
+    <div class="form-group">
+      <%= label_tag 'A propos' %>
+      <%= text_field_tag 'description', @user.description, {class: 'form-control'} %>
+    </div> 
     <br />
     <%= submit_tag "Envoyer", {class:'btn btn-primary'}%>
   <% end %>

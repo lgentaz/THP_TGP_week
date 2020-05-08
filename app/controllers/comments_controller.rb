@@ -66,6 +66,7 @@ class CommentsController < ApplicationController
       redirect_to gossips_path
     else
       @comment.destroy
+      flash[:success] = "Supprimé avec succès."
       redirect_to gossip_path(@comment.gossip.id)
     end
   end

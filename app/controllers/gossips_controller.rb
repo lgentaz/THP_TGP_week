@@ -17,7 +17,7 @@ class GossipsController < ApplicationController
     @gossip = Gossip.new(title: params[:title], content: params[:content], user: current_user)
     if @gossip.save
       flash[:success] = "Bravo! Ton potin a été enregistré."
-      redirect_to gossips_path
+      redirect_to gossip_path(@gossip.id)
     else
       messages = []
       if @gossip.errors.any?
@@ -46,7 +46,7 @@ class GossipsController < ApplicationController
     else
       if @gossip.update(title: params[:title], content: params[:content])
         flash[:success] = "Bravo! Ta modification a été enregistrée."
-        redirect_to gossips_path
+        redirect_to gossip_path(@gossip.id)
       else
         messages = []
         if @gossip.errors.any?
@@ -67,6 +67,7 @@ class GossipsController < ApplicationController
       redirect_to gossips_path
     else
       @gossip.destroy
+      flash[:success] = "Supprimé avec succès!"
       redirect_to gossips_path
     end
   end

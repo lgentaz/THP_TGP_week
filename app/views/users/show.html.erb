@@ -13,9 +13,12 @@
         <p><span class="text-warning">A propos de moi :  </span><%= @user.description%></p>
       </div>
     </div>
-    <div class="card-footer text-muted">
-      <%user_city = @user.city%>
-      en direct de <%= link_to user_city.name, city_path(user_city.id), class:"text-warning"%> 
+    <div class="card-footer text-muted card-body d-flex justify-content-between">
+      <div><%user_city = @user.city%>
+      en direct de <%= link_to user_city.name, city_path(user_city.id), class:"text-warning"%> </div>
+      <% if current_user?(@user) %>
+      <div> <%= link_to "Modifier", edit_user_path, class:"btn btn-outline-info"%></div>
+    <%end%>
     </div>
   </div>
 

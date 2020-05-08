@@ -32,10 +32,10 @@
           <%= link_to "Accueil", gossips_path, class: "nav-link"%>
         </li>
         <li class="nav-item">
-          <%= link_to "L'équipe","team", class: "nav-link"%>
+          <%= link_to "L'équipe", team_path, class: "nav-link"%>
         </li>
         <li class="nav-item">
-          <%= link_to "Contact", "contact", class: "nav-link"%>
+          <%= link_to "Contact", contact_path, class: "nav-link"%>
         </li>
     </ul>
     <% if signed_in? %>
@@ -49,7 +49,7 @@
     <% else %>
       <div class="dropdown show">
         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Sign In / Sign Up
+          Log In / Sign Up
         </a>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <%= link_to "Sign Up", new_user_path, class: "dropdown-item"%>

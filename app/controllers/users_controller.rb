@@ -9,15 +9,17 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new(last_name: params[:last_name], first_name: params[:first_name], email: params[:email], password: params[:password])
+    @user = User.new(last_name: params[:last_name], first_name: params[:first_name], email: params[:email], age: params[:age], password: params[:password], description: params[:description])
   end
 
   def create
-    @user = User.new(last_name: params[:last_name], first_name: params[:first_name], email: params[:email], password: params[:password], city: City.find(params[:city_id]))
+    @city = City.create(name: params[:city], zip_code: rand(10000..99999))
+    @user = User.new(last_name: params[:last_name], first_name: params[:first_name], email: params[:email], age: params[:age], password: params[:password], description: params[:description], city_id: @city.id, image_url:Faker::Avatar.image)
     if @user.save
       log_in(@user)
       flash[:success] = "Tu es enregistré"
-      redirect_to gossips_path
+      puts @user.id
+      redirect_to user_path(@user.id)
     else
       messages = []
       if @user.errors.any?
@@ -26,15 +28,40 @@ class UsersController < ApplicationController
         end
         flash[:danger] = "Impossible de créer le profil: #{messages.join(" ")}"
       end
-      render 'new'
     end    
 
   end
 
   def edit
+    @user = User.find(params[:id])
+    if !current_user?(@user)
+      flash[:danger] = "Hé hé c'est pas ton potin ça!!!"
+      redirect_to gossips_path
+    end
+
   end
 
   def update
+    @user = User.find(params[:id])
+    @city = City.create(name: params[:city], zip_code: rand(10000..99999))
+    if !current_user?(@user)
+      flash[:danger] = "Hé hé c'est pas ton profil ça!!!"
+      redirect_to gossips_path
+    else
+      if @user.update(last_name: params[:last_name], first_name: params[:first_name], email: params[:email], age: params[:age], password: params[:password], description: params[:description], city_id: @city.id, image_url: params[:image_url])
+        flash[:success] = "Bravo! Ta modification a été enregistrée."
+        redirect_to user_path(@user.id)
+      else
+        messages = []
+        if @user.errors.any?
+          @user.errors.full_messages.each do |message|
+            messages << message
+          end
+          flash[:danger] = "Impossible de modifier le profil: #{messages.join(" ")}"
+        end
+        redirect_to edit_user_path
+      end
+    end    
   end
 
   def user_params
