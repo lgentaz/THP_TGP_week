@@ -8,9 +8,7 @@ module SessionsHelper
     end
 
     def liked?(which_goss)
-        liked_user = Like.find_by(user_id: session[:user_id])
-        liked_gossip = Like.find_by(gossip_id: which_goss)
-        liked_user == liked_gossip
+        which_goss.user_id == session[:user_id]
     end
     
     def log_in(user)

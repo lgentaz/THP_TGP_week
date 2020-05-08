@@ -3,20 +3,13 @@ class LikesController < ApplicationController
   before_action :authenticate_user, only: [:create, :destroy]
 
   def create
-    @like = Like.new(gossip: params[:gossip_id], user: current_user)
-    if @gossip.save
-      flash[:success] = "Bravo! Ton potin a été enregistré."
+    @like = Like.new(liked: true, gossip_id: params[:gossip_id], user_id: current_user.id)
+    if @like.save
+      flash[:success] = "Merci d'avoir liké!"
       redirect_to gossips_path
     else
-      messages = []
-      if @gossip.errors.any?
-        @gossip.errors.full_messages.each do |message|
-          messages << message
-        end
-        flash[:danger] = "Impossible de créer le potin: #{messages.join(" ")}"
-      end
-      redirect_to new_gossip_path
-    end    
+      flash[:error] = @like.errors.full_messages.join(', ')
+    end
   end
 
   def destroy

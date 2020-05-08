@@ -15,6 +15,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(last_name: params[:last_name], first_name: params[:first_name], email: params[:email], password: params[:password], city: City.find(params[:city_id]))
     if @user.save
+      log_in(@user)
       flash[:success] = "Tu es enregistré"
       redirect_to gossips_path
     else

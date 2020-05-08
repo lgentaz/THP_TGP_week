@@ -22,14 +22,37 @@
           <div class="card-body">
             <h5 class="card-title text-primary"><%= gossip.title %></h5>
             <p class="card-text"> de <%= link_to gossip.user.first_name, user_path(gossip.user.id) %></p>
-            <%if gossip.likes.count()>0%>
-              <%= gossip.likes.count() %> 
-            <%end%> 
-            <%if liked?(gossip) %>
-            <i class="fas fa-heart"></i>
+            <p class="card-text">
+            <% n = 0%>
+            <%gossip.likes.each do |lg|%>
+            <%if liked?(lg)%>
+            <%n = 1%>
+            <%end%>
+            <%end%>
+            <%if n==1%>
+                <button type="submit" class="btn btn-outline-primary btn-like">
+                  <i class= "fa fa-heart"></i> 
+                  <%if gossip.likes.count()>0%>
+                    <%= gossip.likes.count() %> 
+                  <%end%> 
+                </button>
             <%else %>
-            <i class="far fa-heart"></i>
-            <%end %><br>
+<!-- Bouton like  -->
+              <%= form_tag url_for(:controller => "likes", :action => "create"), method: 'post' do %>
+<!-- Input gossip.id caché -->
+                <%= hidden_field_tag(:gossip_id, gossip.id) %>
+<!-- Input value caché -->
+                <%= hidden_field_tag(:liked, true) %>
+<!-- Lance le like -->
+                <button type="submit" class="btn btn-outline-primary btn-like">
+                  <i class= "far fa-heart"></i> 
+                  <%if gossip.likes.count()>0%>
+                    <%= gossip.likes.count() %> 
+                  <%end%> 
+                </button>
+              <%end%>
+            <%end %>
+            </p>
             <%if gossip.comments.count()>0%>
               <p class="card-text"><%= gossip.comments.count() %> commentaire(s)</p>
             <%end%>
